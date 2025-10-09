@@ -4,7 +4,7 @@ const Product = require("../models/Product")
 
 module.exports = class ProductController {
   static async create(req, res) {
-    const {name, description} = req.body
+    const { name, description } = req.body
     const images = req.files
 
     if (!name) {
@@ -23,18 +23,23 @@ module.exports = class ProductController {
     }
 
     const token = getToken(req)
+    console.log("Token: " + token)
     const user = getUserByToken(token)
+
+    console.log("User: " + user)
 
     const product = new Product({
       name,
-      images: [],
       description,
+      images: [],
       user: {
         _id: user._id,
         name: user.name,
         email: user.email
       }
     })
+
+    // USUÁRIO NÃO ESTÁ INDO PARA O BANCO DO PRODUTO
 
     images.map((img) => {
       product.images.push(img.filename)

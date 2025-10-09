@@ -9,4 +9,7 @@ app.use(express.json())
 const UserRouter = require("./src/routers/UserRouter")
 app.use("/user", UserRouter)
 
+const ProductRouter = require("./src/routers/ProductRouter")
+app.use("/product", ProductRouter)
+
 app.listen(port, () => console.log("Conectando na porta: " + port))
