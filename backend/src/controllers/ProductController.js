@@ -23,10 +23,7 @@ module.exports = class ProductController {
     }
 
     const token = getToken(req)
-    console.log("Token: " + token)
-    const user = getUserByToken(token)
-
-    console.log("User: " + user)
+    const user = await getUserByToken(token)
 
     const product = new Product({
       name,
@@ -38,8 +35,6 @@ module.exports = class ProductController {
         email: user.email
       }
     })
-
-    // USUÁRIO NÃO ESTÁ INDO PARA O BANCO DO PRODUTO
 
     images.map((img) => {
       product.images.push(img.filename)
