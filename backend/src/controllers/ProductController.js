@@ -1,8 +1,25 @@
+const ObjectId = require("mongoose").Types.ObjectId
 const getToken = require("../helpers/get-token")
 const getUserByToken = require("../helpers/get-user-by-token")
 const Product = require("../models/Product")
 
 module.exports = class ProductController {
+  // GET All Products
+  static async getAllProductS(req, res) {
+    const products = await Product.find().sort("-createdAt")
+
+    res.status(200).json({ products: products })
+  }
+
+  // GET Product By id
+  static async getProductById(req, res) {
+    const id = req.params.id
+    const product = await Product.findOne({ _id: id })
+
+    res.status(200).json({ product: product })
+  }
+
+  // POST para criação do Product
   static async create(req, res) {
     const { name, description } = req.body
     const images = req.files
@@ -29,6 +46,7 @@ module.exports = class ProductController {
       name,
       description,
       images: [],
+      inStock: true,
       user: {
         _id: user._id,
         name: user.name,
@@ -47,5 +65,34 @@ module.exports = class ProductController {
       console.error("Erro aoadicionar um produto novo: " + error)
       res.status(500).json({ message: error })
     }
+  }
+
+  // Remover do estoque
+  static async removeStock(req, res) {
+    // Get do produto pelo id
+    const id = req.params.id
+
+    if (!ObjectId.isValid(id)) {
+      res.status(422).json({ message: "Id inválido!" })
+      return
+    }
+
+    const product = await Product.findOne({ _id: id })
+    if (!product) {
+      res.status(404).json({ message: "Produto não encontrado!" })
+      return
+    }
+
+    // Válidações do usuário
+    const token = getToken(req)
+    const user = await getUserByToken(token)
+
+    if (user.statusAdmin !== true) {
+      res.status(422).json({ message: "Você não tem permissão para remover produtos do estoque!" })
+      return
+    }
+
+    await Product.updateOne({ _id: id }, { $set: { inStock: false } })
+    res.status(200).json({ message: "Produto fora do estoque!" })
   }
 }

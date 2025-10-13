@@ -15,6 +15,10 @@ const Product = mongoose.model(
     description: {
       type: String
     },
+    inStock: {
+      type: Boolean,
+      require: true
+    },
     user: Object
   }, {timestamps: true})
 )

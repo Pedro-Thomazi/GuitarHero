@@ -22,6 +22,10 @@ const User = mongoose.model(
       type: String,
       require: true
     },
+    statusAdmin: {
+      type: Boolean,
+      require: true
+    }
   }, {timestamps: true})
 )
 

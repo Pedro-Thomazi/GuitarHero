@@ -49,7 +49,8 @@ module.exports = class UserController {
       email,
       notification: [],
       userCart: [],
-      password: passwordHash
+      password: passwordHash,
+      statusAdmin: false
     })
 
     // Criando usuário no banco de dados
