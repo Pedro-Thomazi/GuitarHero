@@ -15,3 +15,7 @@ a {
   --principal-color: #2CA6D0;
   --secondary-color: #314D5B;
 }
+
+body {
+  overflow-x: hidden;
+}

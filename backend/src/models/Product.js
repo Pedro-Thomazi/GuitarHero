@@ -12,6 +12,10 @@ const Product = mongoose.model(
       type: Array,
       require: true
     },
+    price: {
+      type: Number,
+      require: true
+    },
     description: {
       type: String
     },

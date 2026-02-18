@@ -1,0 +1,48 @@
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+
+  span {
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    background-color: transparent;
+    color: var(--principal-color);
+    font-weight: 400;
+    text-align: center;
+    overflow: hidden;
+    letter-spacing: 4px;
+    margin-bottom: 30px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: var(--principal-color);
+      width: 0%;
+      transition: width .5s ease;
+      z-index: -1;
+    }
+  }
+
+  &:hover span::before {
+    width: 100%;
+  }
+  &:hover span {
+    color: #fff;
+  }
+
+  h3 {
+    font-weight: 400;
+    color: #111;
+  } 
+
+  p {
+    color: #111;
+
+    &.priceParcela {
+      color: var(--principal-color);
+    }
+  }
+}

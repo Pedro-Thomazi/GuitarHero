@@ -21,11 +21,16 @@ module.exports = class ProductController {
 
   // POST para criação do Product
   static async create(req, res) {
-    const { name, description } = req.body
+    const { name, description, price } = req.body
     const images = req.files
 
     if (!name) {
       res.status(422).json({ message: "Adicione o nome do produto!" })
+      return
+    }
+
+    if (!price) {
+      res.status(422).json({ message: "Adicione o preço do produto!" })
       return
     }
 
@@ -45,6 +50,7 @@ module.exports = class ProductController {
     const product = new Product({
       name,
       description,
+      price,
       images: [],
       inStock: true,
       user: {
@@ -69,7 +75,7 @@ module.exports = class ProductController {
 
   static async update(req, res) {
     const id = req.params.id
-    const { name, description } = req.body
+    const { name, description, price } = req.body
     const images = req.files
 
     const updateProduct = {}
@@ -80,22 +86,23 @@ module.exports = class ProductController {
       return
     }
 
-    // const token = getToken(req)
-    // const user = await getUserByToken(token)
-
     if (!name) {
       res.status(422).json({ message: "Adicione o nome do produto!" })
       return
-    } else {
-      updateProduct.name = name
     }
+    updateProduct.name = name
+
+    if (!price) {
+      res.status(422).json({ message: "Adicione o preço do produto!" })
+      return
+    }
+    updateProduct.price = price
 
     if (!description) {
       res.status(422).json({ message: "Adicione a descrição do produto!" })
       return
-    } else {
-      updateProduct.description = description
     }
+    updateProduct.description = description
 
     if (!images) {
       res.status(422).json({ message: "Adicione pelo menos uma foto!" })
@@ -116,7 +123,7 @@ module.exports = class ProductController {
     updateProduct.inStock = product.inStock
 
     try {
-      const newProduct = await Product.findByIdAndUpdate(id, updateProduct)
+      const newProduct = await Product.updateOne({_id: id}, {$set: updateProduct}, {new: true})
       res.status(201).json({ message: "Produto modificado!", newProduct })
     } catch (error) {
       console.error("Erro ao modificar o produto: " + error)
@@ -158,13 +165,13 @@ module.exports = class ProductController {
   static async getProductsByType(req, res) {
     const { q } = req.query
 
-    if(!q) return res.json({message: "Produto não encontrado!"})
+    if (!q) return res.json({ message: "Produto não encontrado!" })
 
-    
+
     const products = await Product.find({
       $or: [
-        {name: {$regex: q, $options: "i"}},
-        {description: {$regex: q, $options: "i"}}
+        { name: { $regex: q, $options: "i" } },
+        { description: { $regex: q, $options: "i" } }
       ]
     }).sort("-createdAt")
 
