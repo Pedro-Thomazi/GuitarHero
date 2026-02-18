@@ -1,11 +1,12 @@
-import Logo from "./components/Logo/Logo"
+import { BrowserRouter } from "react-router-dom"
+import Home from "./pages/Home/Home"
 
 function App() {
 
   return (
-    <>
-      <Logo />
-    </>
+    <BrowserRouter>
+      <Home />
+    </BrowserRouter>
   )
 }
 

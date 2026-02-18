@@ -10,3 +10,8 @@
 a {
   text-decoration: none;
 }
+
+:root {
+  --principal-color: #2CA6D0;
+  --secondary-color: #314D5B;
+}

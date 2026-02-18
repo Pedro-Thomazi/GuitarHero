@@ -68,7 +68,7 @@ module.exports = class ProductController {
   }
 
   static async update(req, res) {
-    const id = req.params.id 
+    const id = req.params.id
     const { name, description } = req.body
     const images = req.files
 
@@ -82,7 +82,7 @@ module.exports = class ProductController {
 
     // const token = getToken(req)
     // const user = await getUserByToken(token)
-    
+
     if (!name) {
       res.status(422).json({ message: "Adicione o nome do produto!" })
       return
@@ -151,5 +151,23 @@ module.exports = class ProductController {
 
     await Product.updateOne({ _id: id }, { $set: { inStock: false } })
     res.status(200).json({ message: "Produto fora do estoque!" })
+  }
+
+
+  // GETs separados [GUITARRAS - BAIXOS - BATERIAS, ...]
+  static async getProductsByType(req, res) {
+    const { q } = req.query
+
+    if(!q) return res.json({message: "Produto não encontrado!"})
+
+    
+    const products = await Product.find({
+      $or: [
+        {name: {$regex: q, $options: "i"}},
+        {description: {$regex: q, $options: "i"}}
+      ]
+    }).sort("-createdAt")
+
+    res.status(200).json(products)
   }
 }

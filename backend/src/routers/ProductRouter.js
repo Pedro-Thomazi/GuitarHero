@@ -8,6 +8,7 @@ const { imageUpload } = require("../helpers/upload-image")
 const checkToken = require("../middleware/verify-token")
 
 router.get("/", ProductController.getAllProductS)
+router.get("/search", ProductController.getProductsByType)
 router.get("/:id", ProductController.getProductById)
 router.post("/create", checkToken, imageUpload.array("images"), ProductController.create)
 router.patch("/update/:id", checkToken, imageUpload.array("images"), ProductController.update)

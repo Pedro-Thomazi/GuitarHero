@@ -1,0 +1,46 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 0 30px;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: var(--secondary-color);
+    transition: .5s;
+
+    &:hover {
+      color: var(--principal-color);
+    }
+  }
+
+  a.btnDown {
+    position: relative;
+
+    div {
+      display: none;
+      position: absolute;
+      top: 30px;
+      width: 100%;
+      
+      a {
+        text-align: end;
+        padding: 3px;
+        transition: .5s;
+
+        &:hover {
+          background-color: var(--secondary-color);
+          color: #fff;
+        }
+      }
+
+      &.open {
+        display: block;
+      }
+    }
+  }
+}
