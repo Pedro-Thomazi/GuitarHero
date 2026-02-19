@@ -1,7 +1,7 @@
 import type { User } from "./UserInterface"
 
 export interface Product {
-  id: string,
+  _id: string,
   name: string,
   price: number,
   images: [],

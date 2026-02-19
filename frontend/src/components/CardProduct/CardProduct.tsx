@@ -18,7 +18,7 @@ const CardProduct = ({ data }: Datatype) => {
 
   console.log(data.price)
   return (
-    <Link to={"/"} className={styles.cardContainer}>
+    <Link to={`/produto/${data.name}/${data._id}`} className={styles.cardContainer}>
       {data.images.map((img, index) => (
         <img key={index} src={`http://localhost:5050/images/product/${img}`} alt={`Foto imagem: ${img}`} />
       ))}
