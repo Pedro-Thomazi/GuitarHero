@@ -4,7 +4,7 @@ export interface Product {
   _id: string,
   name: string,
   price: number,
-  images: [],
+  images: string[],
   description: string
   user: User,
   inStock: boolean

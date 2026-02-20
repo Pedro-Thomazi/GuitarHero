@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import type { Product } from '../../interfaces/ProductInterface'
 import styles from './CardProduct.module.css'
+import { useState } from 'react'
 
 interface Datatype {
   data: Product
@@ -15,13 +16,10 @@ const CardProduct = ({ data }: Datatype) => {
     let parcela = data.price / 12
     priceParceladoFormat = parcela.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
   }
-
-  console.log(data.price)
+  
   return (
     <Link to={`/produto/${data.name}/${data._id}`} className={styles.cardContainer}>
-      {data.images.map((img, index) => (
-        <img key={index} src={`http://localhost:5050/images/product/${img}`} alt={`Foto imagem: ${img}`} />
-      ))}
+      <img src={`http://localhost:5050/images/product/${data.images[0]}`} alt={`Foto imagem: ${data.name}`} />
       <span>COMPRAR</span>
       <h3>{data.name}</h3>
       <p>{formatPrice}</p>

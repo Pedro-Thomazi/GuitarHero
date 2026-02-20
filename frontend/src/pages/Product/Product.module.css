@@ -1,9 +1,10 @@
 .containerProduct {
-  padding: 100px;
+  /* padding: 100px; */
 
   section {
     display: flex;
     gap: 10px;
+    padding: 150px 100px;
 
     div.images {
       display: flex;
@@ -11,23 +12,43 @@
       gap: 5px;
       width: 40%;
 
-      img {
-        display: block;
-        border: 1px solid #000;
-
-        &.principalImg {
-          width: 400px;
-          height: 530px;
-        }
+      img.principalImg {
+        width: 400px;
+        height: 530px;
+        object-fit: cover;
       }
+
 
       .othersImgs {
         display: flex;
         gap: 5px;
 
         img {
+          cursor: pointer;
           width: 100px;
-          height: 140px;
+          height: 130px;
+          object-fit: cover;
+        }
+      }
+
+      .btnsActions {
+        position: absolute;
+        top: 50%;
+        display: flex;
+        justify-content: space-between;
+        width: 400px;
+
+        button {
+          cursor: pointer;
+          height: 75px;
+          border: none;
+          background-color: #33333360;
+          color: #fff;
+          transition: .5s;
+
+          &:hover {
+            background-color: #333333c2;
+          }
         }
       }
     }
