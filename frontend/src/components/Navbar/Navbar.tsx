@@ -16,7 +16,7 @@ const Navbar = () => {
   
   return (
     <nav className={styles.navbar}>
-      <Link to={"/"}>Login</Link>
+      <Link to={"/login"}>Login</Link>
       <Link className={styles.btnDown} to={"#"} onClick={() => actionDropDown()}>
       Intrumentos<FaAngleDown />
       <div className={`${styles.dropdown} ${downOpen ? styles.open : ""}`}>
