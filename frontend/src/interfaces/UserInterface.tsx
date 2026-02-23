@@ -7,8 +7,17 @@ export interface User {
   statusAdmin: boolean
 }
 
+export interface UserLogin {
+  password: string,
+  email: string,
+}
+
 export interface UserCreate {
   name: string,
   password: string,
   email: string,
+}
+
+export interface DataToken {
+  token: string
 }

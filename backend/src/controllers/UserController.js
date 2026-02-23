@@ -1,4 +1,5 @@
 const createUserToken = require("../helpers/create-user-token")
+const getToken = require("../helpers/get-token")
 const User = require("../models/User")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
@@ -93,5 +94,23 @@ module.exports = class UserController {
     }
 
     await createUserToken(user, req, res)
+  }
+
+  // Detalhes do Usuário
+  static async userDetails(req, res) {
+    let userDetails
+
+    if (req.headers.authorization) {
+      const token = getToken(req)
+      const decoded = jwt.verify(token, "nossosecret")
+
+      userDetails = await User.findById(decoded.id).select("-password")
+
+      userDetails.password = undefined
+    } else {
+      userDetails = null
+    }
+
+    res.status(200).send(userDetails)
   }
 }
