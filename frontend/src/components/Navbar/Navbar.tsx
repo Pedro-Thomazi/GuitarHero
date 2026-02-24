@@ -24,6 +24,8 @@ const Navbar = () => {
     }
   }, [token])
 
+  console.log(authenticated)
+
   // Actions menu dropdown
   const [downOpen, setDownOpen] = useState<boolean>(false)
 
@@ -37,8 +39,8 @@ const Navbar = () => {
 
   return (
     <nav className={styles.navbar}>
-      {!authenticated ? (
-        <p>Ola: {user?.name}</p>
+      {authenticated ? (
+        <Link to={"/dashboard"}>Olá: {user?.name}</Link>
       ) : (
         <Link to={"/login"}>Login</Link>
       )}
@@ -51,7 +53,7 @@ const Navbar = () => {
           <Link to={"/"}>Baterias</Link>
         </div>
       </Link>
-      <Link to={"/"}>Login</Link>
+      <Link to={"/"}>Sair</Link>
     </nav>
   )
 }

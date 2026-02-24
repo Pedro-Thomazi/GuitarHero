@@ -1,0 +1,8 @@
+.dashboardContainer {
+  display: flex;
+  flex-direction: column;
+
+  section {
+    padding: 130px 100px;
+  }
+}

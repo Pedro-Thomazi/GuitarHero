@@ -35,8 +35,6 @@ const Login = () => {
     setHideEye(styles.hide)
   }
 
-  if (authenticated) navigate("/")
-
   // Form Actions
   function handleChange(e: ChangeEvent<HTMLInputElement>): void {
     setUser({ ...user, [e.target.name]: e.target.value })
@@ -47,6 +45,8 @@ const Login = () => {
 
     login(user, navigate)
   }
+
+  if (authenticated) navigate("/")
 
   return (
     <main className={styles.loginCotaianer}>

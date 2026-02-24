@@ -8,7 +8,10 @@ const Home = () => {
     <main className={styles.containerHome}>
       <Header />
       <CarrosselImgs />
+      <h2 className={styles.title}>Produtos em destaque</h2>
       <ContainerProducts query='guitarra' />
+      <h2 className={styles.title}>Baixos Elétricos</h2>
+      <ContainerProducts query='baixo' />
     </main>
   )
 }

@@ -2,10 +2,15 @@ import { createContext, useContext, type ReactNode } from "react";
 import type { UserLogin } from "../interfaces/UserInterface";
 import type { NavigateFunction } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import type { DataCreateProduct, DataImage } from "../interfaces/ProductInterface";
+import useProduct from "../hooks/useProduct";
 
 interface AuthContextType {
   authenticated?: boolean,
   login: (user: UserLogin, navigate: NavigateFunction) => Promise<void>
+
+  // Funções do Produto
+  createProduct: (product: DataCreateProduct, image: DataImage, token: string, navigate: NavigateFunction) => Promise<void>
 }
 
 const Context = createContext<AuthContextType | undefined>(undefined)
@@ -15,9 +20,12 @@ function UserProvider({ children }: { children: ReactNode }) {
     authenticated,
     login
   } = useAuth()
+  const {
+    createProduct
+  } = useProduct()
 
   return (
-    <Context.Provider value={{ authenticated, login }}>
+    <Context.Provider value={{ authenticated, login, createProduct }}>
       {children}
     </Context.Provider>
   )

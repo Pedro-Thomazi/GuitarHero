@@ -4,6 +4,8 @@ import ProductPage from "./pages/Product/Product"
 import ScrollToTop from "./middlewares/ScrollToTop"
 import Login from "./pages/Login/Login"
 import { UserProvider } from "./context/UserContext"
+import Dashboard from "./pages/Dashboard/Dashboard"
+import CreateProduct from "./pages/CreateProduct/CreateProduct"
 
 function App() {
 
@@ -15,6 +17,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/produto/:name/:id" element={<ProductPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/create-product" element={<CreateProduct />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>

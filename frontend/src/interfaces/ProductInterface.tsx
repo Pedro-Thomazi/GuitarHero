@@ -9,3 +9,11 @@ export interface Product {
   user: User,
   inStock: boolean
 }
+
+export interface DataCreateProduct {
+  name: string,
+  price: number,
+  description: string
+}
+
+export type DataImage = File[] | null

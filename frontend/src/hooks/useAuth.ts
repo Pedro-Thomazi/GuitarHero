@@ -53,7 +53,6 @@ export default function useAuth() {
   }
 
 
-
   return {
     authenticated,
     login
