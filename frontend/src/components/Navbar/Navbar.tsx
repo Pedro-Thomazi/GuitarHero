@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import type { User } from '../../interfaces/UserInterface';
 import { useAuthContext } from '../../context/UserContext';
 import axios from 'axios';
+import FormSearch from '../FormSearch/FormSearch';
 
 const Navbar = () => {
   const { authenticated } = useAuthContext()
@@ -39,12 +40,12 @@ const Navbar = () => {
 
   return (
     <nav className={styles.navbar}>
+      <FormSearch />
       {authenticated ? (
         <Link to={"/dashboard"}>Olá: {user?.name}</Link>
       ) : (
         <Link to={"/login"}>Login</Link>
-      )}
-      
+      )}  
       <Link className={styles.btnDown} to={"#"} onClick={() => actionDropDown()}>
         Intrumentos<FaAngleDown />
         <div className={`${styles.dropdown} ${downOpen ? styles.open : ""}`}>

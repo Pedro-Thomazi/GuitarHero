@@ -1,0 +1,26 @@
+.form { 
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 400px;
+
+  input {
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--principal-color);
+    outline: none;
+    color: var(--principal-color);
+    font-size: 1.2rem;
+  }
+
+  button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+
+    svg {
+      color: var(--principal-color);
+    }
+  }
+}
