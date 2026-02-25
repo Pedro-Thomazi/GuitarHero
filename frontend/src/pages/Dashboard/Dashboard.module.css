@@ -4,5 +4,143 @@
 
   section {
     padding: 130px 100px;
+
+    .linkCreateProd {
+      margin-top: 10px;
+      display: block;
+      width: 300px;
+      padding: 10px;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      transition: .5s;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid var(--principal-color);
+      background-color: var(--principal-color);
+
+      &:hover {
+        background-color: transparent;
+        color: var(--principal-color);
+        letter-spacing: 3px;
+        font-weight: 600;
+      }
+    }
+
+    table {
+      margin-top: 40px;
+      width: 100%;
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+
+      thead {
+        background: var(--principal-color);
+        color: #fff;
+      }
+
+      th {
+        padding: 16px;
+        text-align: left;
+        font-weight: 500;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      td {
+        padding: 14px 16px;
+        font-size: 14px;
+        color: #444;
+        border-bottom: 1px solid #f0f0f0;
+
+        &.actionsProd {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+
+          svg {
+            cursor: pointer;
+            transition: .5s;
+
+            &.pencil {
+              color: green;
+            }
+
+            &.trash {
+              color: rgb(161, 1, 1);
+            }
+          }
+        }
+      }
+
+      tbody tr {
+        transition: background 0.3s ease;
+      }
+
+      tbody tr:hover {
+        background: #aaa;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+    }
   }
+}
+
+
+
+/* Drop Down */
+.containerCard {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  background-color: #111111b2;
+
+  .content {
+    width: 400px;
+    background-color: #fff;
+    padding: 30px;
+
+    div {
+      display: flex;
+      align-items: center;
+      margin-top: 30px;
+      gap: 5px;
+
+      button {
+        cursor: pointer;
+        width: 50%;
+        font-size: 1.1rem;
+        padding: 6px;
+        transition: .5s;
+
+        &.deleteBtn {
+          background-color: #920000;
+          color: #fff;
+          border: 1px solid #920000;
+
+          &:hover {
+            background-color: transparent;
+            color: #920000;
+            letter-spacing: 3px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}
+.hide {
+  display: none;
 }

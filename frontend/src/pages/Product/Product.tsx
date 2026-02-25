@@ -4,6 +4,7 @@ import type { Product } from '../../interfaces/ProductInterface'
 import { useParams } from 'react-router-dom'
 import HeaderSecondary from '../../components/HeaderSecondary/HeaderSecondary'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
+import { formatePrice, formatParcela } from '../../utils/Functions'
 
 const ProductPage = () => {
   const { id } = useParams()
@@ -36,15 +37,6 @@ const ProductPage = () => {
     });
   }
 
-  let formatPrice
-  let priceParceladoFormat
-  if (product?.price) {
-    formatPrice = product?.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-
-    let parcela = product?.price / 12
-    priceParceladoFormat = parcela.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-  }
-
   function next() {
     if (!product?.images?.length) return
     setIndexImg((i) => {
@@ -72,8 +64,8 @@ const ProductPage = () => {
         </div>
         <div className={styles.details}>
           <h3>{product?.name}</h3>
-          <p className={styles.price}>{formatPrice}</p>
-          <p className={styles.priceParcela}>12x de {priceParceladoFormat}</p>
+          <p className={styles.price}>{product && formatePrice(product?.price)}</p>
+          <p className={styles.priceParcela}>12x de {product && formatParcela(product?.price)}</p>
 
           <button className={styles.btnbuy}>Comprar</button>
 

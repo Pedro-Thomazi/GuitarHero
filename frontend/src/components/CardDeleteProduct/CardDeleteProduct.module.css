@@ -1,0 +1,50 @@
+.containerCard {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  background-color: #111111b2;
+
+  .content {
+    width: 400px;
+    background-color: #fff;
+    padding: 30px;
+
+    div {
+      display: flex;
+      align-items: center;
+      margin-top: 30px;
+      gap: 5px;
+
+      button {
+        cursor: pointer;
+        width: 50%;
+        font-size: 1.1rem;
+        padding: 6px;
+        transition: .5s;
+
+        &.deleteBtn {
+          background-color: #920000;
+          color: #fff;
+          border: 1px solid #920000;
+
+          &:hover {
+            background-color: transparent;
+            color: #920000;
+            letter-spacing: 3px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}
+
+.hide {
+  display: none;
+}
