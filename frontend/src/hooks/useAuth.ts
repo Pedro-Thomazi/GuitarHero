@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import type { DataToken, UserLogin } from "../interfaces/UserInterface";
+import type { DataToken, UserLogin, UserRegister } from "../interfaces/UserInterface";
 import type { NavigateFunction } from "react-router-dom";
 
 export default function useAuth() {
@@ -52,6 +52,27 @@ export default function useAuth() {
     }
   }
 
+  async function register(user:UserRegister, navigate: NavigateFunction) {
+    try {
+      const res = await fetch("http://localhost:5050/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+      })
+
+      if (!res.ok) throw new Error("Erro ao fazer o Registro. Tente novamente mais tarde!")
+
+      const data = await res.json()
+      await authUser(data)
+      await navigate("/")
+    } catch (error) {
+      console.log("Erro Registro: " + error)
+      alert("Erro ao fazer o Registro. Tente novamente mais tarde!")
+    }
+  }
+
   async function logout() {
     setAuthenticated(false)
 
@@ -64,6 +85,7 @@ export default function useAuth() {
   return {
     authenticated,
     login,
+    register,
     logout
   }
 }

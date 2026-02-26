@@ -1,22 +1,22 @@
-import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { useState, type ChangeEvent, type FormEvent } from 'react'
 import styles from './Login.module.css'
+import type { UserLogin, UserRegister } from '../../interfaces/UserInterface'
+import useAuth from '../../hooks/useAuth'
+import { Link, useNavigate } from 'react-router-dom'
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { useAuthContext } from '../../context/UserContext'
 
-// Icons
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useNavigate } from 'react-router-dom';
-import type { UserLogin } from '../../interfaces/UserInterface';
-import useAuth from '../../hooks/useAuth';
-
-
-const Login = () => {
+const Register = () => {
   // Funções
-  const { authenticated, login } = useAuth()
+  const { authenticated, login, register } = useAuthContext()
   const navigate = useNavigate()
 
   // INFO USER
-  const [user, setUser] = useState<UserLogin>({
+  const [user, setUser] = useState<UserRegister>({
+    name: "",
     email: "",
-    password: ""
+    password: "",
+    confirmPassword: ""
   })
 
   const [typeInputPass, setTypeInputPass] = useState<string>("password")
@@ -43,7 +43,7 @@ const Login = () => {
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
 
-    login(user, navigate)
+    register(user, navigate)
   }
 
   if (authenticated) navigate("/")
@@ -51,8 +51,12 @@ const Login = () => {
   return (
     <main className={styles.loginCotaianer}>
       <section>
-        <h3>Login</h3>
+        <h3>Registra-se</h3>
         <form onSubmit={handleSubmit}>
+          <div>
+            <input onChange={handleChange} type="text" name="name" id="name" required />
+            <label htmlFor="name">Nome</label>
+          </div>
           <div>
             <input onChange={handleChange} type="email" name="email" id="email" required />
             <label htmlFor="email">E-mail</label>
@@ -63,13 +67,19 @@ const Login = () => {
             <FaEye onClick={showPass} className={showEye} size={25} />
             <FaEyeSlash onClick={hidePass} className={hideEye} size={25} />
           </div>
+          <div>
+            <input onChange={handleChange} type={typeInputPass} name="confirmPassword" id="confirmPassword" required />
+            <label htmlFor="confirmPassword">Confirmação de Senha</label>
+            <FaEye onClick={showPass} className={showEye} size={25} />
+            <FaEyeSlash onClick={hidePass} className={hideEye} size={25} />
+          </div>
           <input type="submit" value="Entrar" />
         </form>
 
-        <p className={styles.linkChangePage}>Ainda não tem uma conta? <Link to={"/register"}>Clique Aqui!</Link></p>
+        <p className={styles.linkChangePage}>Já tem uma conta? <Link to={"/login"}>Clique Aqui!</Link></p>
       </section>
     </main>
   )
 }
 
-export default Login
+export default Register

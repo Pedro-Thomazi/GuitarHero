@@ -12,6 +12,13 @@ export interface UserLogin {
   email: string,
 }
 
+export interface UserRegister {
+  password: string,
+  confirmPassword: string,
+  email: string,
+  name: string,
+}
+
 export interface UserCreate {
   name: string,
   password: string,

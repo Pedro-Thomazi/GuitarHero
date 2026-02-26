@@ -1,5 +1,5 @@
 import { createContext, useContext, type ReactNode } from "react";
-import type { UserLogin } from "../interfaces/UserInterface";
+import type { UserLogin, UserRegister } from "../interfaces/UserInterface";
 import type { NavigateFunction } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import type { DataCreateProduct, DataImage } from "../interfaces/ProductInterface";
@@ -8,6 +8,7 @@ import useProduct from "../hooks/useProduct";
 interface AuthContextType {
   authenticated?: boolean,
   login: (user: UserLogin, navigate: NavigateFunction) => Promise<void>
+  register: (user: UserRegister, navigate: NavigateFunction) => Promise<void>
   logout: () => Promise<void>
 
   // Funções do Produto
@@ -20,6 +21,7 @@ function UserProvider({ children }: { children: ReactNode }) {
   const {
     authenticated,
     login,
+    register,
     logout
   } = useAuth()
   const {
@@ -27,7 +29,7 @@ function UserProvider({ children }: { children: ReactNode }) {
   } = useProduct()
 
   return (
-    <Context.Provider value={{ authenticated, login, logout, createProduct }}>
+    <Context.Provider value={{ authenticated, login, register, logout, createProduct }}>
       {children}
     </Context.Provider>
   )
