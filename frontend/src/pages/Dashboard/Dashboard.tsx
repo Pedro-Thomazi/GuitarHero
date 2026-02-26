@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import HeaderSecondary from '../../components/HeaderSecondary/HeaderSecondary'
 import styles from './Dashboard.module.css'
 import { useEffect, useState } from 'react'
@@ -7,13 +7,13 @@ import axios from 'axios'
 import type { Product } from '../../interfaces/ProductInterface'
 import { FaPencilAlt, FaTrashAlt, FaCrown } from "react-icons/fa";
 import { formatePrice } from '../../utils/Functions'
-import CardDeleteProduct from '../../components/CardDeleteProduct/CardDeleteProduct'
 
 const Dashboard = () => {
   const [token] = useState(localStorage.getItem("token") || "")
   const [user, setUser] = useState<User>()
   const [products, setProducts] = useState<Product[]>([])
   const [showDropDown, setShowDropDown] = useState<boolean>(false)
+  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -47,6 +47,10 @@ const Dashboard = () => {
   function deleteProduct() {
     alert("Deletar")
   }
+
+  useEffect(() => {
+    if (!user?.statusAdmin) navigate("/") 
+  }, [token])
 
   return (
     <main className={styles.dashboardContainer}>
