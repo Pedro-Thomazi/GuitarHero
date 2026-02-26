@@ -12,6 +12,8 @@ const Home = () => {
       <ContainerProducts query='guitarra' />
       <h2 className={styles.title}>Baixos Elétricos</h2>
       <ContainerProducts query='baixo' />
+      <h2 className={styles.title}>Bateias</h2>
+      <ContainerProducts query='bateria' />
     </main>
   )
 }

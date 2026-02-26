@@ -6,6 +6,7 @@ import Login from "./pages/Login/Login"
 import { UserProvider } from "./context/UserContext"
 import Dashboard from "./pages/Dashboard/Dashboard"
 import CreateProduct from "./pages/CreateProduct/CreateProduct"
+import SearchPage from "./pages/SearchPage/SearchPage"
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/create-product" element={<CreateProduct />} />
+          <Route path="/products" element={<SearchPage />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>

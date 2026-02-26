@@ -6,12 +6,15 @@ import ContainerProducts from '../../components/ContainerProducts/ContainerProdu
 const SearchPage = () => {
   const [searchParams] = useSearchParams()
   const query = searchParams.get("q")
+  console.log(typeof query)
 
   return (
     <main className={styles.searchContainer}>
       <Header />
-      <h2 className={styles.title}>Busca por </h2>
-      <ContainerProducts query={query} />
+      <section>
+        <h2 className={styles.title}>Busca por {query}</h2>
+        <ContainerProducts query={query} />
+      </section>
     </main>
   )
 }

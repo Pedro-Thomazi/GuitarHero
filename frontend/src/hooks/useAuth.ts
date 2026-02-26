@@ -52,9 +52,18 @@ export default function useAuth() {
     }
   }
 
+  async function logout() {
+    setAuthenticated(false)
+
+    localStorage.removeItem("token")
+    delete axios.defaults.headers.common["Authorization"]
+    window.location.reload()
+  }
+
 
   return {
     authenticated,
-    login
+    login,
+    logout
   }
 }

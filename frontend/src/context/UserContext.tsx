@@ -8,6 +8,7 @@ import useProduct from "../hooks/useProduct";
 interface AuthContextType {
   authenticated?: boolean,
   login: (user: UserLogin, navigate: NavigateFunction) => Promise<void>
+  logout: () => Promise<void>
 
   // Funções do Produto
   createProduct: (product: DataCreateProduct, image: DataImage, token: string, navigate: NavigateFunction) => Promise<void>
@@ -18,14 +19,15 @@ const Context = createContext<AuthContextType | undefined>(undefined)
 function UserProvider({ children }: { children: ReactNode }) {
   const {
     authenticated,
-    login
+    login,
+    logout
   } = useAuth()
   const {
     createProduct
   } = useProduct()
 
   return (
-    <Context.Provider value={{ authenticated, login, createProduct }}>
+    <Context.Provider value={{ authenticated, login, logout, createProduct }}>
       {children}
     </Context.Provider>
   )

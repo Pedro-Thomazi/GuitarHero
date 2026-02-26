@@ -4,7 +4,7 @@ import type { Product } from '../../interfaces/ProductInterface'
 import CardProduct from '../CardProduct/CardProduct'
 
 interface TypeProp {
-  query: string
+  query: string | null
 }
 
 const ContainerProducts = ({ query }: TypeProp) => {

@@ -8,7 +8,7 @@ import axios from 'axios';
 import FormSearch from '../FormSearch/FormSearch';
 
 const Navbar = () => {
-  const { authenticated } = useAuthContext()
+  const { authenticated, logout } = useAuthContext()
   const [token] = useState<string>(localStorage.getItem("token") || "")
   const [user, setUser] = useState<User>()
 
@@ -46,15 +46,19 @@ const Navbar = () => {
       ) : (
         <Link to={"/login"}>Login</Link>
       )}  
-      <Link className={styles.btnDown} to={"#"} onClick={() => actionDropDown()}>
+      <span className={styles.btnDown} onClick={() => actionDropDown()}>
         Intrumentos<FaAngleDown />
         <div className={`${styles.dropdown} ${downOpen ? styles.open : ""}`}>
-          <Link to={"/"}>Guitarras</Link>
-          <Link to={"/"}>Baixos</Link>
-          <Link to={"/"}>Baterias</Link>
+          <Link to={"/products?q=guitarra"}>Guitarras</Link>
+          <Link to={"/products?q=baixo"}>Baixos</Link>
+          <Link to={"/products?q=bateria"}>Baterias</Link>
         </div>
-      </Link>
-      <Link to={"/"}>Sair</Link>
+      </span>
+      {token ? (
+        <button className={styles.btnLogout} onClick={logout}>Sair</button>
+      ) : (
+        ""
+      )}
     </nav>
   )
 }
