@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard/Dashboard"
 import CreateProduct from "./pages/CreateProduct/CreateProduct"
 import SearchPage from "./pages/SearchPage/SearchPage"
 import Register from "./pages/Login/Register"
+import MyCart from "./pages/MyCart/MyCart"
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/my-cart" element={<MyCart />} />
           <Route path="/create-product" element={<CreateProduct />} />
           <Route path="/products" element={<SearchPage />} />
         </Routes>

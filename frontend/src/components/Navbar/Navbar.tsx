@@ -13,7 +13,7 @@ const Navbar = () => {
   const [user, setUser] = useState<User>()
 
   useEffect(() => {
-    if(token) {
+    if (token) {
       axios.get("http://localhost:5050/user/details", {
         method: "GET",
         headers: {
@@ -42,10 +42,14 @@ const Navbar = () => {
     <nav className={styles.navbar}>
       <FormSearch />
       {authenticated ? (
-        <Link to={"/dashboard"}>Olá: {user?.name}</Link>
+        user?.statusAdmin ? (
+          <Link to={"/dashboard"}>Olá: {user?.name}</Link>
+        ) : (
+          <Link to={"/my-cart"}>Olá: {user?.name}</Link>
+        )
       ) : (
         <Link to={"/login"}>Login</Link>
-      )}  
+      )}
       <span className={styles.btnDown} onClick={() => actionDropDown()}>
         Intrumentos<FaAngleDown />
         <div className={`${styles.dropdown} ${downOpen ? styles.open : ""}`}>

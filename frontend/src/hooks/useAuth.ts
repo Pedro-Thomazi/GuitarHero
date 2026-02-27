@@ -46,6 +46,7 @@ export default function useAuth() {
       const data = await res.json()
       await authUser(data)
       await navigate("/")
+      await location.reload()
     } catch (error) {
       console.log("Erro Login: " + error)
       alert("Erro ao fazer o Login. Tente novamente mais tarde!")
