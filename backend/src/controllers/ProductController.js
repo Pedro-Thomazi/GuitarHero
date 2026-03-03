@@ -177,4 +177,6 @@ module.exports = class ProductController {
 
     res.status(200).json(products)
   }
+
+  
 }

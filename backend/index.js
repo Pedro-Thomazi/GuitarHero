@@ -17,4 +17,7 @@ app.use("/user", UserRouter)
 const ProductRouter = require("./src/routers/ProductRouter")
 app.use("/products", ProductRouter)
 
+const BuyRouter = require("./src/routers/BuyRouter")
+app.use("/buy", BuyRouter)
+
 app.listen(port, () => console.log("Conectando na porta: " + port))
