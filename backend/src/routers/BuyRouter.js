@@ -6,6 +6,7 @@ const router = require("express").Router()
 const checkToken = require("../middleware/verify-token")
 
 
+router.get("/get-buy-user", checkToken, BuyController.getRequisitionToBuy)
 router.post("/buy-product/:id", checkToken, BuyController.requisitionToBuy)
 // router.patch("/send-product/:id", checkToken, BuyController.update)
 

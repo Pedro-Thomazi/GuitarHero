@@ -7,6 +7,15 @@ const User = require("../models/User")
 
 module.exports = class BuyController {
 
+  static async getRequisitionToBuy(req, res) {
+    const token = getToken(req)
+    const user = await getUserByToken(token)
+
+    const userCart = user.userCart
+
+    // CONTINUAR DAQUI -- COLETAR O ID DA REQBUY E MOSTRAR TODAS AS REQS QUE O USER FEZ
+  }
+
   static async requisitionToBuy(req, res) {
     const id = req.params.id
     const product = await Product.findOne({ _id: id })
