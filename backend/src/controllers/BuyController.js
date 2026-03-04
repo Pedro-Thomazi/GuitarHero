@@ -3,6 +3,7 @@ const getToken = require("../helpers/get-token")
 const getUserByToken = require("../helpers/get-user-by-token")
 const Buy = require("../models/Buy")
 const Product = require("../models/Product")
+const User = require("../models/User")
 
 module.exports = class BuyController {
 
@@ -11,7 +12,7 @@ module.exports = class BuyController {
     const product = await Product.findOne({ _id: id })
 
     const token = getToken(req)
-    const user = getUserByToken(token)
+    const user = await getUserByToken(token)
 
     const { quantity } = req.body
 
@@ -38,6 +39,7 @@ module.exports = class BuyController {
       })
       try {
         const createBuyReq = await buyReq.save()
+        await User.findByIdAndUpdate(user._id, { $push: { userCart: createBuyReq._id } })
         res.status(201).json({ message: "Pedido feito! Aguarde...", createBuyReq })
       } catch (error) {
         res.status(404).json({ message: "Ocorreu um erro no seu pedido!" })

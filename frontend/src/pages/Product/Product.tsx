@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react'
 import styles from './Product.module.css'
 import type { Product } from '../../interfaces/ProductInterface'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import HeaderSecondary from '../../components/HeaderSecondary/HeaderSecondary'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 import { formatePrice, formatParcela } from '../../utils/Functions'
+import { useAuthContext } from '../../context/UserContext'
 
 const ProductPage = () => {
+  const { authenticated } = useAuthContext()
   const { id } = useParams()
   const [product, setProduct] = useState<Product>()
   const [principalImg, setPrincipalImg] = useState<string>()
   const [indexImg, setIndexImg] = useState<number>(0)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const load = async () => {
@@ -46,6 +49,12 @@ const ProductPage = () => {
     });
   }
 
+  function addProductInCart() {
+    alert("Adicionado ao carrinho!")
+
+    navigate("/my-cart")
+  }
+
   return (
     <main className={styles.containerProduct}>
       <HeaderSecondary />
@@ -67,7 +76,11 @@ const ProductPage = () => {
           <p className={styles.price}>{product && formatePrice(product?.price)}</p>
           <p className={styles.priceParcela}>12x de {product && formatParcela(product?.price)}</p>
 
-          <button className={styles.btnbuy}>Comprar</button>
+          {authenticated ? (
+            <button onClick={() => addProductInCart()} className={styles.btnbuy}>Comprar</button>
+          ) : (
+            <button onClick={() => navigate("/login")} className={styles.btnbuy}>Comprar</button>
+          )}
 
           <p className={styles.descriptions}>{product?.description}</p>
         </div>

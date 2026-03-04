@@ -1,8 +1,17 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Header from '../../components/Header/Header'
 import styles from './MyCart.module.css'
+import { useState } from 'react'
+import type { User } from '../../interfaces/UserInterface'
+import { useAuthContext } from '../../context/UserContext'
 
 const MyCart = () => {
+  const { authenticated } = useAuthContext()
+  const [user, setUser] = useState<User>()
+  const navigate = useNavigate()
+
+  if (!authenticated) navigate("/login")
+
   return (
     <main className={styles.containerMyCart}>
       <Header />
