@@ -15,7 +15,7 @@ const CreateProduct = () => {
   })
 
   const [image, setImage] = useState<DataImage>()
-  const [previewImg, setPreviewImg] = useState<File[]>([])
+  // const [previewImg, setPreviewImg] = useState<File[]>([])
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const CreateProduct = () => {
 
   function handleImage(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files.length > 0) {
-      setPreviewImg(Array.from(e.target.files))
+      // setPreviewImg(Array.from(e.target.files))
       setImage(Array.from(e.target.files))
     }
   }

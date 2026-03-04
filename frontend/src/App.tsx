@@ -9,6 +9,7 @@ import CreateProduct from "./pages/CreateProduct/CreateProduct"
 import SearchPage from "./pages/SearchPage/SearchPage"
 import Register from "./pages/Login/Register"
 import MyCart from "./pages/MyCart/MyCart"
+import { ProtectRouter, ProtectRouterAuth, ProtectRouterIfUserNotAdmin } from "./middlewares/ProtectRouter"
 
 function App() {
 
@@ -19,10 +20,26 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/produto/:name/:id" element={<ProductPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/my-cart" element={<MyCart />} />
+          <Route path="/login" element={
+            <ProtectRouterAuth>
+              <Login />
+            </ProtectRouterAuth>
+          } />
+          <Route path="/register" element={
+            <ProtectRouterAuth>
+              <Register />
+            </ProtectRouterAuth>
+          } />
+          <Route path="/dashboard" element={
+            <ProtectRouterIfUserNotAdmin>
+              <Dashboard />
+            </ProtectRouterIfUserNotAdmin>
+          } />
+          <Route path="/my-cart" element={
+            <ProtectRouter>
+              <MyCart />
+            </ProtectRouter>
+          } />
           <Route path="/create-product" element={<CreateProduct />} />
           <Route path="/products" element={<SearchPage />} />
         </Routes>

@@ -10,7 +10,6 @@ const MyCart = () => {
   const [user, setUser] = useState<User>()
   const navigate = useNavigate()
 
-  if (!authenticated) navigate("/login")
 
   return (
     <main className={styles.containerMyCart}>

@@ -48,10 +48,6 @@ const Dashboard = () => {
     alert("Deletar")
   }
 
-  useEffect(() => {
-    if (!user?.statusAdmin) navigate("/") 
-  }, [token])
-
   return (
     <main className={styles.dashboardContainer}>
       <HeaderSecondary />

@@ -46,7 +46,6 @@ const Login = () => {
     login(user, navigate)
   }
 
-  if (authenticated) navigate("/")
 
   return (
     <main className={styles.loginCotaianer}>
