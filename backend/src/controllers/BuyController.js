@@ -11,9 +11,13 @@ module.exports = class BuyController {
     const token = getToken(req)
     const user = await getUserByToken(token)
 
-    const userCart = user.userCart
+    const cart = await User.findById(user._id, { userCart: 1, _id: 0 })
 
-    // CONTINUAR DAQUI -- COLETAR O ID DA REQBUY E MOSTRAR TODAS AS REQS QUE O USER FEZ
+    const reqsBuy = await Buy.find({
+      _id: { $in: cart.userCart }
+    })
+
+    res.status(201).json({ message: "Pedidos feito!", reqsBuy })
   }
 
   static async requisitionToBuy(req, res) {
@@ -42,7 +46,7 @@ module.exports = class BuyController {
           name: user.name,
         },
         product: {
-          id: product._id,
+          _id: product._id,
           name: product.name,
         }
       })

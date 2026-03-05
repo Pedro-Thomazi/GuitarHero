@@ -25,7 +25,6 @@ const Navbar = () => {
     }
   }, [token])
 
-  console.log(authenticated)
 
   // Actions menu dropdown
   const [downOpen, setDownOpen] = useState<boolean>(false)

@@ -6,12 +6,13 @@ import type { User } from '../../interfaces/UserInterface'
 import { useAuthContext } from '../../context/UserContext'
 import axios from 'axios'
 import type { Cart } from '../../interfaces/Cart'
+import { formatePrice } from '../../utils/Functions'
 
 const MyCart = () => {
   const { authenticated } = useAuthContext()
   const [token] = useState(localStorage.getItem("token") || "")
   const [user, setUser] = useState<User>()
-  const [userCart, setUserCart] = useState<Cart>()
+  const [userCart, setUserCart] = useState<Cart[]>([])
   const navigate = useNavigate()
 
 
@@ -30,15 +31,16 @@ const MyCart = () => {
 
   useEffect(() => {
     if (token) {
-      axios.get("http://localhost:5050/user/details", {
+      axios.get("http://localhost:5050/buy/get-buy-user", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${JSON.parse(token)}`
         }
       }).then((res) => {
-        setUser(res.data)
+        setUserCart(res.data.reqsBuy)
       })
     }
+
   }, [token])
 
   return (
@@ -48,21 +50,28 @@ const MyCart = () => {
         <h3>Meus pedidos</h3>
 
         <div className={styles.pedidos}>
-          <div className={styles.pedido}>
-            <div className={styles.detailsBuy}>
-              <p>Pedido realizado <br /> 22 de fevereiro de 2026</p>
-              <p>Total <br /> R$123,45</p>
-              <p className={styles.space}>Enviado para <br /> <span>Usuário</span></p>
-              <p>Pedido N∘ 123123-123123-12312</p>
-            </div>
-            <div className={styles.imageAndDetails}>
-              <h4>Chegará no dia 40 de Dezembro</h4>
-              <div>
-                <img src="/" alt="Imagem produto" />
-                <Link to={'/'}>Nome do produto</Link>
+          {userCart.map((item, index) => (
+            <div key={index} className={styles.pedido}>
+              <div className={styles.detailsBuy}>
+                <p>Pedido realizado <br /> {item.dateBuy}</p>
+                <p>Total <br /> {formatePrice(item.price)}</p>
+                <p className={styles.space}>Enviado para <br /> <span>{item.user.name}</span></p>
+                <p>Pedido N∘ {item._id}</p>
+              </div>
+              <div className={styles.imageAndDetails}>
+                <h4>Chegará no dia 40 de Dezembro</h4>
+                <div>
+                  <img src={`http://localhost:5050/images/product/${item.image}`} alt={`Foto imagem: ${item.product.name}`} />
+                  <Link to={`/produto/${item.product.name}/${item.product._id}`}>{item.product.name}</Link>
+                </div>
               </div>
             </div>
-          </div>
+          ))}
+          {!userCart && (
+            <div className={styles.pedido}>
+              <p>Sem asdasd</p>
+            </div>
+          )}
         </div>
       </section>
     </main>
