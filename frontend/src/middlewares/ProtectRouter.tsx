@@ -6,7 +6,9 @@ import axios from "axios";
 
 
 export function ProtectRouter({ children }: { children: JSX.Element }) {
-  const { authenticated } = useAuthContext()
+  const { authenticated, loading } = useAuthContext()
+  if (loading) return <p>Carregando...</p>
+
 
   if (!authenticated) return <Navigate to={"/login"} replace />
 
@@ -14,7 +16,9 @@ export function ProtectRouter({ children }: { children: JSX.Element }) {
 }
 
 export function ProtectRouterAuth({ children }: { children: JSX.Element }) {
-  const { authenticated } = useAuthContext()
+  const { authenticated, loading } = useAuthContext()
+  if (loading) return <p>Carregando...</p>
+
 
   if (authenticated) return <Navigate to={"/"} replace />
 
@@ -22,9 +26,11 @@ export function ProtectRouterAuth({ children }: { children: JSX.Element }) {
 }
 
 export function ProtectRouterIfUserNotAdmin({ children }: { children: JSX.Element }) {
-  const { authenticated } = useAuthContext()
+  const { authenticated, loading } = useAuthContext()
   const [token] = useState(localStorage.getItem("token") || "")
   const [user, setUser] = useState<User>()
+
+  if (loading) return <p>Carregando...</p>
 
   useEffect(() => {
     if (token) {

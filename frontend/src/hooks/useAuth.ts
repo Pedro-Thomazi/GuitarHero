@@ -5,14 +5,17 @@ import type { NavigateFunction } from "react-router-dom";
 
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState<boolean>()
+  const [loading, setLoading] = useState<boolean>(true)
 
-  useEffect(()=> {
+  useEffect(() => {
     const token = localStorage.getItem("token")
 
     if (token) {
       axios.defaults.headers.Authorization = `Bearer ${JSON.stringify(token)}`
 
       setAuthenticated(true)
+      setLoading(false)
+
 
       const logoutTimer = setTimeout(() => {
         setAuthenticated(false)
@@ -23,15 +26,16 @@ export default function useAuth() {
 
       return () => clearInterval(logoutTimer)
     }
+
   }, [])
 
-  async function authUser(data:DataToken) {
+  async function authUser(data: DataToken) {
     setAuthenticated(true)
 
     localStorage.setItem("token", JSON.stringify(data.token))
   }
 
-  async function login(user:UserLogin, navigate: NavigateFunction) {
+  async function login(user: UserLogin, navigate: NavigateFunction) {
     try {
       const res = await fetch("http://localhost:5050/user/login", {
         method: "POST",
@@ -53,7 +57,7 @@ export default function useAuth() {
     }
   }
 
-  async function register(user:UserRegister, navigate: NavigateFunction) {
+  async function register(user: UserRegister, navigate: NavigateFunction) {
     try {
       const res = await fetch("http://localhost:5050/user/register", {
         method: "POST",
@@ -85,6 +89,7 @@ export default function useAuth() {
 
   return {
     authenticated,
+    loading,
     login,
     register,
     logout
